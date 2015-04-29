@@ -1,0 +1,60 @@
+
+p{
+	margin: 20px;
+    font-size:14px;
+}
+
+#ProjectSummury{
+	float: left;
+	width: 400px;
+	border: 1px solid black;
+	border-radius: 8px;
+	padding: 5px 20px;
+}
+
+b{	
+	padding: 5px 20px;
+    cursor:pointer;
+    color:#fff;
+    background-color:#41c7c2;
+    border-radius: 8px;
+    transition:0.3s;
+}
+
+b:hover{
+    background-color:#beecea;
+}
+
+#ProjectForm{
+	margin-left: 20px;
+	width: 400px;
+	border: 1px solid black;
+	border-radius: 8px;
+	float: left;
+}
+
+#ProjectForm.visible{
+	display: block;
+}
+#ProjectForm.none{
+	display: none;
+}
+
+div.text , div.input{
+	padding: 5px 20px;
+}
+
+div.blockLeft{
+	float: left;
+}
+
+div.blockRigth{
+	text-align: right;
+	
+}
+
+
+
+
+
+
