@@ -1,4 +1,4 @@
-var summuryProject = 
+var SummaryProject =
 {
 	projectCode: '115033.10',
 	projectStatus: 'Completed-Verified', 
@@ -8,4 +8,4 @@ var summuryProject =
 	totalPercent: '4 800.00'
 };
 
-module.exports = summuryProject;
+module.exports = SummaryProject;

@@ -1,17 +1,21 @@
-var React = require('react');
-var Button = React.createClass({
-    propTypes: {
-        label: React.PropTypes.string
-    },
+var React = require('react'),
+    _ = require('underscore');
 
-    _onClick: function(){
-        this.props.value();
+var Button = React.createClass({
+
+    onClick: function(){
+        var action = this.props.action;
+        var valuesFunction = this.props.data.action;
+        for(func in valuesFunction){
+            console.log(action[valuesFunction[func]]);
+            action[valuesFunction[func]]();
+        }
     },
 
     render: function(){
-        return <p onClick={this._onClick}>
+        return <p onClick={this.onClick}>
             <b>
-                {this.props.label}
+                {this.props.data.name}
             </b>
         </p>;
     }

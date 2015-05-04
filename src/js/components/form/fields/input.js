@@ -3,14 +3,18 @@ var React = require('react');
 var Input  = React.createClass({
 
     onChange: function(event){
-        this.props.value(this.props.id, event.target.value);
+
+        var action = this.props.action;
+        var valuesFunction = this.props.data.action;
+
+        action[valuesFunction](this.props.data.id, event.target.value);
     },
 
     render(){
         return (
             <div className='input'>
                 <div className="blockLeft">
-						{this.props.label}
+						{this.props.data.name}
                 </div>
                 <div className="blockRigth">
                     <input type="text" onChange={this.onChange}/>

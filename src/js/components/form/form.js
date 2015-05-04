@@ -1,29 +1,26 @@
-var React = require('react'),
-    _ = require('underscore');
+var React = require('react');
 
-var metaDataForm = require('../form/projectform').projectForm;
-var typeFields = require('../form/projectform').typeFields;
-var Action = require('../action/ActionProject');
+var Metadata = require('../Form/MetadataForm').Metadata,
+    TypeFields = require('../Form/MetadataForm').TypeFields;
 
+var FormStore = require('../Form/Stores/FormStore'),
+    Action = require('../Form/Action/Action');
+
+function getFormState(id){
+    return{
+        display: FormStore.getDisplay(id)
+    }
+}
 
 var Form = React.createClass({
 
-    findValue: function(currentObject, id){
-        var  object = _.pairs(currentObject);
-        var currentValue;
-        object.forEach(function(value){
-            if(value[0] === id)
-            {
-                currentValue = value[1];
-            }
-        });
-
-        return currentValue;
+    getInitialState: function(){
+        return getFormState(this.props.id);
     },
 
     findForm:function(id){
         var form;
-        metaDataForm.forEach(function(current){
+        Metadata.forEach(function(current){
             if(current.id === id){
                 form = current;
             }
@@ -31,40 +28,34 @@ var Form = React.createClass({
         return form;
     },
 
+    componentDidMount: function() {
+        FormStore.addChangeListener(this._onChange);
+    },
+
+    componentWillUnmount: function() {
+        FormStore.removeChangeListener(this._onChange);
+    },
+
     render: function() {
         var form = this.findForm(this.props.id);
         var fields = form.fields;
-        var funcValue = this.findValue;
-        var data = this.props.data;
+        var value = this.props.data;
+
         return (
-            <div id = {form.id} className = {this.props.className}>
+            <div id = {form.id} className = {this.state.display}>
 				{
                     fields.map(function(field)
                     {
-                        var currentValue;
-                        switch(field.type){
-                            case 'button':
-                            case 'input':
-                                currentValue = funcValue(Action, field.action);
-                                break;
-                            case 'text':
-                                currentValue = funcValue(data, field.id);
-                                break;
-                        }
-                        var type = _.pairs(typeFields);
-                        var CurrentFields;
-                        type.forEach(function(value){
-                            if(value[0] === field.type)
-                            {
-                                CurrentFields = value[1];
-                            }
-                        });
-
-                        return new CurrentFields({label: field.name, value: currentValue, type: field.type, id: field.id});
+                        var CurrentField  = TypeFields[field.type];
+                        return new CurrentField({data: field, action: Action, value: value});
                     })
                 }
             </div>
         );
+    },
+
+    _onChange: function() {
+        this.setState(getFormState(this.props.id));
     }
 
 });

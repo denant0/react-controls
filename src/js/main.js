@@ -1,5 +1,5 @@
-var APP = require('./components/app');
+var Application = require('./Components/Application');
 var React = require('react');
 
 
-React.render(<APP/>, document.getElementById('main'));
+React.render(<Application/>, document.getElementById('main'));

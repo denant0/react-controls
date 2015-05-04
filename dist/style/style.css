@@ -4,7 +4,7 @@ p{
     font-size:14px;
 }
 
-#ProjectSummury{
+#ProjectSummary{
 	float: left;
 	width: 400px;
 	border: 1px solid black;
@@ -25,7 +25,7 @@ b:hover{
     background-color:#beecea;
 }
 
-#ProjectForm{
+#FormProject{
 	margin-left: 20px;
 	width: 400px;
 	border: 1px solid black;
@@ -33,10 +33,10 @@ b:hover{
 	float: left;
 }
 
-#ProjectForm.visible{
+#FormProject.SHOW{
 	display: block;
 }
-#ProjectForm.none{
+#FormProject.HIDE{
 	display: none;
 }
 

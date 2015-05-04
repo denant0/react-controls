@@ -1,21 +1,14 @@
 var React = require('react');
-var Text = React.createClass ({
 
-    getValue:function(){
-        var value = this.props.value;
-        if(value ==''){
-            value = 'not defined';
-        }
-        return value;
-    },
+var Text = React.createClass ({
     render:function(){
         return (
             <div className='text'>
                 <div className="blockLeft">
-						{this.props.label}
+						{this.props.data.name}
                 </div>
                 <div className="blockRigth">
-						{this.getValue()}
+						{this.props.value[this.props.data.id]}
                 </div>
             </div>
         )
