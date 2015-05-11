@@ -1,20 +1,29 @@
 var React = require('react');
 
+/*
+ The form element. Data entry field.
+ Type "Input".
+ */
 var Input  = React.createClass({
 
+    /*
+     Function enter data into the field
+     */
     onChange: function(event){
-
         var action = this.props.action;
-        var valuesFunction = this.props.data.action;
+        var valueFunction = this.props.dataFieldProp.action;
 
-        action[valuesFunction](this.props.data.id, event.target.value);
+        action[valueFunction](this.props.dataFieldProp.id, event.target.value);
     },
 
+    /*
+     To show the element "Input" on the form
+     */
     render(){
         return (
             <div className='input'>
                 <div className="blockLeft">
-						{this.props.data.name}
+						{this.props.dataFieldProp.name}
                 </div>
                 <div className="blockRigth">
                     <input type="text" onChange={this.onChange}/>
@@ -23,7 +32,6 @@ var Input  = React.createClass({
         )
     }
 });
-
 
 module.exports = Input;
 

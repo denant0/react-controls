@@ -1,61 +1,50 @@
-var Dispatcher = require('../Dispatchers/Dispatcher'),
-	Constants = require('../Constants/ProjectConstants'),
-	EventEmitter = require('events').EventEmitter,
-	assign = require('object-assign');
+var Reflux = require('reflux'),
+	Action = require('../Action/Action');
 
-var project = {},
-	tempProject = {};
-	
-function setValueProject(id, value){
-	tempProject[id] = value;
-}
+/*
+ Storage actions with this project
+ */
+var ProjectStore = Reflux.createStore({
+	listenables: [Action],
 
-function getValueProject(id){
-	return project[id];
-}
+	/*
+	 The function changes the values of the parameters of the project
+	 	@param id: field ID
+	 	@param value: the value of the parameter
+	 */
+	onChangeValueFormProject(id ,value){
+		tempProject[id] = value;
+		this.trigger(tempProject);
+	},
 
-function save(){
-	for(items in tempProject ){
-		project[items] = tempProject[items];
-	}
-}
+	/*
+	 Save project data
+	 */
+	onSaveDataFormProject(){
+		for(items in tempProject ){
+			project[items] = tempProject[items];
+		}
+		this.trigger(project);
+	},
 
-var ProjectStore = assign({}, EventEmitter.prototype, {
-
-	init(data){
+	/*
+	 Initializing project data
+	 	@param data: project data
+	 */
+	initProjectData: function(data){
 		project = data;
+		tempProject = {};
 	},
 
-	getProject: function(){
-		return project;
-	},
-
-	emitChange: function() {
-		this.emit('change');
-	},
-
-	addChangeListener: function(callback) {
-		this.on('change', callback);
-	},
-
-	removeChangeListener: function(callback) {
-		this.removeListener('change', callback);
+	/*
+	 Get project data
+	 */
+	getProjectData: function(){
+		return {
+			project: project
+		}
 	}
-});
-	
-Dispatcher.register(function(data){
-	var action = data.action;
-	var text;
-	switch(action.actionType){
-		case Constants.CHANGE_VALUE_PROJECT:
-			setValueProject(action.id, action.value);
-			break;
-		case Constants.SAVE_VALUE_PROJECT:
-			save();
-			break;
-		default:
-	}
-	ProjectStore.emitChange();
+
 });
 	
 module.exports = ProjectStore;

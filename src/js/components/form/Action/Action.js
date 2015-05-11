@@ -1,31 +1,13 @@
-var Dispather = require('../Dispatchers/Dispatcher');
-var ProjectConstants = require('../Constants/ProjectConstants');
-var FormConstants = require('../Constants/FormConstants');
+var Reflux = require('reflux');
 
-var Action = {
-	displayShowFormProject: function(){
-		Dispather.handleAction({
-			actionType: FormConstants.SHOW
-		});
-	},
-	displayHideFormProject: function(){
-		Dispather.handleAction({
-			actionType: FormConstants.HIDE
-		});
-	},
-	changeValueFormProject: function(id, value){
-		Dispather.handleAction({
-			actionType: ProjectConstants.CHANGE_VALUE_PROJECT,
-			id: id,
-			value: value
-
-		});
-	},
-	saveDataFormProject: function(){
-		Dispather.handleAction({
-			actionType: ProjectConstants.SAVE_VALUE_PROJECT
-		});
-	}
-};
+/*
+ The list of actions
+ */
+var  Action = Reflux.createActions([
+	"displayShowFormProject",
+	"displayHideFormProject",
+	"changeValueFormProject",
+	"saveDataFormProject"
+]);
 
 module.exports = Action;

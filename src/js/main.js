@@ -1,5 +1,7 @@
 var Application = require('./Components/Application');
 var React = require('react');
 
-
-React.render(<Application/>, document.getElementById('main'));
+/*
+ Displaying the application in the browser
+ */
+React.render(<Application/>, document.body);

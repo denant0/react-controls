@@ -1,10 +1,10 @@
-var Dispatcher = require('../Dispatchers/Dispatcher'),
-    Constants = require('../Constants/FormConstants'),
-    EventEmitter = require('events').EventEmitter,
-    assign = require('object-assign');
+var Reflux = require('reflux'),
+    Action = require('../Action/Action');
 
-
-var metadata = [
+/*
+ Data of all forms
+ */
+var metadataActionForms = [
     {
         id: 'SummaryProject',
         display: 'SHOW'
@@ -15,55 +15,55 @@ var metadata = [
     }
 ];
 
-function setMetadata(formId, name, value){
-    for(number in metadata){
-        if(metadata[number]['id'] == formId)
-            metadata[number][name] = value;
-    }
-};
+/*
+ Store action form
+ */
+var FormStore = Reflux.createStore({
+    listenables: [Action],
 
+    /*
+     Function display form filling project data
+     */
+    onDisplayShowFormProject(){
+        this.setPropertyForm('FormProject', 'display', 'SHOW');
+    },
 
+    /*
+     Function hide form filling project data
+     */
+    onDisplayHideFormProject(){
+        this.setPropertyForm('FormProject', 'display', 'HIDE');
 
-var FormStore = assign({}, EventEmitter.prototype, {
+    },
 
-    getDisplay(id){
-        var display;
-        for(number in metadata) {
-            if(metadata[number]['id'] == id){
-                display = metadata[number]['display'];
+    /*
+     To set the property form
+        @param formId: form ID
+        @param name: name of the field
+        @param value: value of the field
+     */
+    setPropertyForm(formId, name, value){
+        for(number in metadataActionForms){
+            if(metadataActionForms[number]['id'] == formId)
+                metadataActionForms[number][name] = value;
+        }
+        this.trigger(metadataActionForms);
+    },
+
+    /*
+     To get the form properties
+        @param formId: form ID
+        @param name: name of the field
+     */
+    getPropertyForm(formId, name){
+        var value;
+        for(number in metadataActionForms) {
+            if(metadataActionForms[number]['id'] == formId){
+                value = metadataActionForms[number][name];
             }
         }
-        return display;
-    },
-
-
-    emitChange: function() {
-        this.emit('change');
-    },
-
-
-    addChangeListener: function(callback) {
-        this.on('change', callback);
-    },
-
-    removeChangeListener: function(callback) {
-        this.removeListener('change', callback);
+        return value;
     }
-});
-
-Dispatcher.register(function(data){
-    var action = data.action;
-    var text;
-    switch(action.actionType){
-        case Constants.SHOW:
-            setMetadata('FormProject', 'display', 'SHOW');
-            break;
-        case Constants.HIDE:
-            setMetadata('FormProject', 'display', 'HIDE');
-            break;
-        default:
-    }
-    FormStore.emitChange();
 });
 
 module.exports = FormStore;

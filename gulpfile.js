@@ -1,6 +1,6 @@
-var gulp = require('gulp');
-var browserify = require('gulp-browserify');
-var concat = require('gulp-concat');
+var gulp = require('gulp'),
+    browserify = require('gulp-browserify'),
+    concat = require('gulp-concat');
 
 gulp.task('browserify', function(){
    gulp.src('src/js/Main.js')

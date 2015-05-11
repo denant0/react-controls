@@ -1,46 +1,39 @@
-/**
- * Created by A on 28.04.2015.
- */
-var React = require('react');
+var React = require('react'),
+    Reflux = require('reflux');
 
 var Project = require('../Components/Form/Stores/ProjectStore'),
     Form = require('../Components/Form/Form');
-var dataProject = require('../Components/Data/Data');
 
-function getProjectState() {
-    Project.init(dataProject);
-    return {
-        project: Project.getProject()
-    };
-}
+var ProjectData = require('../Components/Data/Data'),
+    ProjectMetadata = require('../Components/Data/MetadataForm');
 
+/*
+ The main class of the application build
+ */
 var Application = React.createClass({
 
+    mixins: [Reflux.connect(Project)],
+
+    /*
+     Initialization data for forms
+     */
     getInitialState: function() {
-        return getProjectState();
+        Project.initProjectData(ProjectData);
+        return Project.getProjectData();
     },
 
-    componentDidMount: function() {
-        Project.addChangeListener(this._onChange);
-    },
-
-    componentWillUnmount: function() {
-        Project.removeChangeListener(this._onChange);
-    },
-
-
+    /*
+     The display elements of the application
+     */
     render: function() {
         return (
             <div>
-				<Form id='ProjectSummary' data = {this.state.project} />
-                <Form id='FormProject' />
+				<Form id='ProjectSummary' data = {this.state.project} metadata = {ProjectMetadata} />
+                <Form id='FormProject' metadata = {ProjectMetadata} />
             </div>
         );
-    },
-
-    _onChange: function() {
-        this.setState(getProjectState());
     }
+
 });
 
 module.exports = Application;
