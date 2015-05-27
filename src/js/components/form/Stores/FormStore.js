@@ -4,7 +4,7 @@ var Reflux = require('reflux'),
 /*
  Data of all forms
  */
-var metadataActionForms = [
+var formsMetadata = [
     {
         id: 'SummaryProject',
         display: 'SHOW'
@@ -43,11 +43,11 @@ var FormStore = Reflux.createStore({
         @param value: value of the field
      */
     setPropertyForm(formId, name, value){
-        for(number in metadataActionForms){
-            if(metadataActionForms[number]['id'] == formId)
-                metadataActionForms[number][name] = value;
+        for(number in formsMetadata){
+            if(formsMetadata[number]['id'] == formId)
+                formsMetadata[number][name] = value;
         }
-        this.trigger(metadataActionForms);
+        this.trigger(formsMetadata);
     },
 
     /*
@@ -57,9 +57,9 @@ var FormStore = Reflux.createStore({
      */
     getPropertyForm(formId, name){
         var value;
-        for(number in metadataActionForms) {
-            if(metadataActionForms[number]['id'] == formId){
-                value = metadataActionForms[number][name];
+        for(number in formsMetadata) {
+            if(formsMetadata[number]['id'] == formId){
+                value = formsMetadata[number][name];
             }
         }
         return value;

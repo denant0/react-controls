@@ -21264,7 +21264,7 @@ var Project = require('../Components/Form/Stores/ProjectStore'),
     Form = require('../Components/Form/Form');
 
 var ProjectData = require('../Components/Data/Data'),
-    ProjectMetadata = require('../Components/Data/MetadataForm');
+    ProjectMetadata = require('../Components/Data/FormsMetadata');
 
 /*
  The main class of the application build
@@ -21298,7 +21298,7 @@ var Application = React.createClass({displayName: "Application",
 module.exports = Application;
 
 
-},{"../Components/Data/Data":178,"../Components/Data/MetadataForm":179,"../Components/Form/Form":182,"../Components/Form/Stores/ProjectStore":184,"react":156,"reflux":157}],178:[function(require,module,exports){
+},{"../Components/Data/Data":178,"../Components/Data/FormsMetadata":179,"../Components/Form/Form":182,"../Components/Form/Stores/ProjectStore":184,"react":156,"reflux":157}],178:[function(require,module,exports){
 /*
  Project data
  */
@@ -21318,7 +21318,7 @@ module.exports = SummaryProject;
 /*
  Metadata forms
  */
-var MetadataForms = [
+var FormsMetadata = [
     {
         'id': 'ProjectSummary',
         'fields': [
@@ -21409,7 +21409,7 @@ var MetadataForms = [
     }
 ];
 
-module.exports = MetadataForms;
+module.exports = FormsMetadata;
 
 
 },{}],180:[function(require,module,exports){
@@ -21505,7 +21505,7 @@ var Reflux = require('reflux'),
 /*
  Data of all forms
  */
-var metadataActionForms = [
+var formsMetadata = [
     {
         id: 'SummaryProject',
         display: 'SHOW'
@@ -21544,11 +21544,11 @@ var FormStore = Reflux.createStore({
         @param value: value of the field
      */
     setPropertyForm(formId, name, value){
-        for(number in metadataActionForms){
-            if(metadataActionForms[number]['id'] == formId)
-                metadataActionForms[number][name] = value;
+        for(number in formsMetadata){
+            if(formsMetadata[number]['id'] == formId)
+                formsMetadata[number][name] = value;
         }
-        this.trigger(metadataActionForms);
+        this.trigger(formsMetadata);
     },
 
     /*
@@ -21558,9 +21558,9 @@ var FormStore = Reflux.createStore({
      */
     getPropertyForm(formId, name){
         var value;
-        for(number in metadataActionForms) {
-            if(metadataActionForms[number]['id'] == formId){
-                value = metadataActionForms[number][name];
+        for(number in formsMetadata) {
+            if(formsMetadata[number]['id'] == formId){
+                value = formsMetadata[number][name];
             }
         }
         return value;

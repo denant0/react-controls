@@ -1,7 +1,7 @@
 /*
  Metadata forms
  */
-var MetadataForms = [
+var FormsMetadata = [
     {
         'id': 'ProjectSummary',
         'fields': [
@@ -92,4 +92,4 @@ var MetadataForms = [
     }
 ];
 
-module.exports = MetadataForms;
+module.exports = FormsMetadata;

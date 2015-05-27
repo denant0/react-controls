@@ -5,7 +5,7 @@ var Project = require('../Components/Form/Stores/ProjectStore'),
     Form = require('../Components/Form/Form');
 
 var ProjectData = require('../Components/Data/Data'),
-    ProjectMetadata = require('../Components/Data/MetadataForm');
+    ProjectMetadata = require('../Components/Data/FormsMetadata');
 
 /*
  The main class of the application build
